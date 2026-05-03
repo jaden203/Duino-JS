@@ -14,36 +14,36 @@ onmessage = (event) => {
         // If the server sends it's version, it's ready to send a job
         if (event.data.startsWith(`3.`)) {
             // Show the server version in console
-            console.log(
+             postMessage(
                 `CPU${workerVer}: The server is on version ${event.data}`,
             );
             // Show in the console that we're requesting a job
-            console.log(`CPU${workerVer}: Requesting a job...\n`);
+             postMessage(`CPU${workerVer}: Requesting a job...\n`);
             // Asks for a job
             socket.send(`JOB,${username},LOW${miningkey !== null ? `,` + miningkey : ``}`);
         }
         // If our share is correct
         else if (event.data === `GOOD\n`) {
             // Show in the console that the share was correct
-            console.log(`CPU${workerVer}: and the share was correct!\n`);
+             postMessage(`CPU${workerVer}: and the share was correct!\n`);
             // Show in the console that we're requesting a new job
-            console.log(`CPU${workerVer}: Requesting a new job...\n`);
+             postMessage(`CPU${workerVer}: Requesting a new job...\n`);
             // Ask for a new job
             socket.send(`JOB,${username},LOW${miningkey !== null ? `,` + miningkey : ``}`);
         }
         // If our share is incorrect
         else if (event.data === `BAD\n`) {
             // Show in the console that the share was wrong
-            console.log(`CPU${workerVer}: and the share was wrong...\n`);
+             postMessage(`CPU${workerVer}: and the share was wrong...\n`);
             // Show in the console that we're requesting a new job
-            console.log(`CPU${workerVer}: Requesting a new job...\n`);
+             postMessage(`CPU${workerVer}: Requesting a new job...\n`);
             // Ask for a new job
             socket.send(`JOB,${username},LOW${miningkey !== null ? `,` + miningkey : ``}`);
         }
         // If the server sends a job
         else {
             // Show in console that we recieved a new job, and shows the contents
-            console.log(
+             postMessage(
                 `CPU${workerVer}: New job recieved! It contains: ${event.data}`,
             );
             // Get the job from the server message
@@ -62,7 +62,7 @@ onmessage = (event) => {
                     // Calulate the hashrate
                     const hashrate = (result / timeDifference).toFixed(2);
                     // Print the hashrate in the console
-                    console.log(
+                     postMessage(
                         `CPU${workerVer}: The hashrate is ${hashrate} H/s. Sending the result back to the server...`,
                     );
                     // Send the result back to the server
